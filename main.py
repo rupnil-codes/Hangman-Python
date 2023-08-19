@@ -1,5 +1,6 @@
 import os
 import random
+from time import sleep as sleep
 
 hangman = ['''
   +---+
@@ -56,6 +57,33 @@ hangman = ['''
 def clear():
   os.system('cls')
 
+def listToString(lst: list) -> str:
+    """
+    Converts a list of strings into a single string by concatenating all the elements.
+
+    Args:
+        lst: A list of strings.
+
+    Returns:
+        A string that concatenates all the elements of the list.
+    """
+    string = ""
+    for element in lst:
+        string += element
+ 
+    return string
+
+def match_with_list(list1: list, list2: list) -> list:
+    output = []
+
+    for item in list1:
+        if item in list2:
+            output.append(item)
+        else:
+            output.append("")
+
+    return output
+
 clear()
 
 print("----Hangman Game----")
@@ -65,18 +93,15 @@ input("")
 
 while True:
   clear()
-  try:
-     print("The word was " + chosen_word)
-  except:
-    pass
   
   chosen_word = ""
   random_line = 1
-  tries = 7
+  tries = 6
   death = False
   win = False
   letters_guessed = 0
   letters_remain = 0
+  letters_guessed_list = []
 
   print("Select your desired mode:\n")
   print("1. Computer VS Player")
@@ -106,6 +131,7 @@ while True:
       chosen_word_list = *chosen_word,
       chosen_word_list = list(chosen_word_list)
       chosen_word_list.pop(-1)
+      chosen_word = listToString(chosen_word_list)
       print(chosen_word_list, "\n")
 
       print("Hints: \n\n- The word has", len(chosen_word_list), "letters")
@@ -115,20 +141,41 @@ while True:
       clear()
 
       while win != True and death != True:
-          g1 = input("Guess a letter: ").upper()
-          if g1 in chosen_word_list and tries != 0 and death != True:
+          g1 = input("\nGuess a letter: ").upper()
+          if g1 in chosen_word_list and tries != 0 and death != True and not g1 in letters_guessed_list:
               letters_guessed = chosen_word_list.count(g1) + letters_guessed
               letters_remain = len(chosen_word_list) - letters_guessed
-              
-              print('\nYou guessed a letter correctly! \n\n- The letter exists', chosen_word_list.count(g1), "times.\n-", letters_remain, "letters remain.\n-",letters_guessed, "letters guessed\n-", tries, "tries left.")
-              input()
+              letters_guessed_list.append(g1)
+              print('\nYou guessed a letter correctly! \n\n- The letter exists', chosen_word_list.count(g1), "times.\n-", letters_remain, "letters remain.\n-",letters_guessed, "letters guessed\n- The letters you have guessed are: ", letters_guessed_list,"\n-", tries, "tries left.")
+              print("\nThe current word is: ", match_with_list(chosen_word_list, letters_guessed_list))
+              # input()
+          elif g1 in letters_guessed_list:
+             print("\nYou already guessed the letter\n")
+             print("\nThe current word is: ", match_with_list(chosen_word_list, letters_guessed_list))
+          elif g1 == chosen_word:
+             sleep(0.1)
+             clear()
+             print("Bravo! You guessed the word correctly!\n\nYour Stats:\n- Tries left: ", tries ,"\n")
+             print("Press enter to continue")
+             input()
+             win = True
+             death = False
           elif tries == 0:
+             sleep(0.1)
+             clear()
+             print(hangman[6])
+             print("\nYou lost the game of hangman :(. Hangman died\nThe word I choose was: ", chosen_word)
+             print("\n- You guessed", letters_guessed, "letters correctly\n- The letters were: ",letters_guessed_list,"\n")
+             print("Press enter to continue")
+             input()
              win = False
              death = True
           else:
-            tries -= 1
+            print(hangman[6 - tries])
             print("You guessed a wrong letter.\n", letters_remain, "letters remain.\n-", tries, "tries left.")
-            input()
+            print("\nThe current word is: ", match_with_list(chosen_word_list, letters_guessed_list))
+            # input()
+            tries -= 1
 
   elif mode_selection == "2":
       pass
