@@ -6,6 +6,13 @@ from src.config import ONBOARDING
 from src.utils import clear, fail_message, padding
 from src import dataManagement as dM
 
+def credits():
+    print(
+        Colors.UNDERLINE + Colors.BOLD + Colors.GREEN + f"{cog.NAME} Game {cog.VERSION} ({cog.PROGRAMING_LANGUAGE})" + Colors.ENDC)
+    print(
+        Colors.YELLOW + "Made with " + Colors.RED + Colors.BOLD + "LOVE" + Colors.ENDC + Colors.YELLOW + " by " + Colors.BLUE + Colors.UNDERLINE + f"{cog.AUTHOR}\n" + Colors.ENDC)
+    sleep(1.5)
+
 def onboarding():
     try:
         user_data = dM.read(dM.user_file)
@@ -47,8 +54,7 @@ def start_menu_options(error: bool = False, message: str = None, hint: str = Non
         print(Colors.BOLD + f"----------{cog.NAME} Start Menu (BETA)----------" + Colors.ENDC)
         print(Colors.BOLD + Colors.FAIL + message + Colors.ENDC)
         if hint is not None:
-            print("Hint: " + hint)
-        print("\n")
+            print("Hint: " + hint + "\n")
         print(padding + "1. Start a Game")
         print(padding + "2. How to play?")
         print(padding + "3. Settings")
@@ -61,23 +67,18 @@ def start_menu():
     if ONBOARDING:
         onboarding()
 
-    print(Colors.UNDERLINE + Colors.BOLD + Colors.GREEN + f"{cog.NAME} Game {cog.VERSION} ({cog.PROGRAMING_LANGUAGE})" + Colors.ENDC)
-    print(Colors.YELLOW + "Made with " + Colors.RED + Colors.BOLD + "LOVE" + Colors.ENDC + Colors.YELLOW + " by " + Colors.BLUE + Colors.UNDERLINE + f"{cog.AUTHOR}\n" + Colors.ENDC)
-    sleep(1.5)
-
     clear()
 
     while True:
         try:
             start_menu_options(error, "Invalid choice, please try again.", "Please enter a choice from 1-4")
             choice = int(input("Enter your choice: "))
+            clear()
             if choice > 4 or choice < 1:
                 raise ValueError
-            break
+            return choice
         except ValueError:
             clear()
             error = True
             continue
-
-    return choice
 

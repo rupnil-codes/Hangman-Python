@@ -71,11 +71,11 @@ full_hangman = [
 ============='''
 ]
 hangman_complete = [
-    full_hangman, # EASY: Index 0 - 7 # 8 Tries
-    full_hangman[2:8], # MEDIUM: Index 2 - 8 # 6 Tries
-    full_hangman[4:8], # HARD: Index 4 - 8 # 4 Tries
-    full_hangman[6:8], # EXTREME: Index 7 - 8 # 2 Tries
-    full_hangman[7:8], # IMPOSSIBLE: Index 8 # 1 Try
+    full_hangman, # EASY: Index 0 - 7 # 8 Tries; Hint at 8/2 = 4
+    full_hangman[2:8], # MEDIUM: Index 2 - 8 # 6 Tries; Hint at 8/2 = 4
+    full_hangman[4:8], # HARD: Index 4 - 8 # 4 Tries; Hint at 8/2 = 4
+    full_hangman[6:8], # EXTREME: Index 7 - 8 # 2 Tries; Hint at 8/2 = 4
+    full_hangman[7:8], # IMPOSSIBLE: Index 8 # 1 Try; Hint at None
 ]
 
 alphabet = list(string.ascii_uppercase)
@@ -122,6 +122,8 @@ def think():
     clear()
 
 def game(choice: int):
+    if choice is None:
+        return None
 
     hangman = hangman_complete[choice-1]
     tries_left = len(hangman)
@@ -148,9 +150,8 @@ def game(choice: int):
         win = True
         for letter in chosen_word_list:
             if letter in letters_guessed_list:
-                print(Colors.UNDERLINE + Colors.BOLD + letter + Colors.ENDC, end=" ")
+                pass
             else:
-                print("＿", end=" ")
                 win = False
 
         if win:
@@ -176,11 +177,9 @@ def game(choice: int):
         character_chosen = character_chosen.upper()
 
         if character_chosen == "":
-            print("char is: " + character_chosen)
             clear()
             continue
         elif character_chosen not in alphabet:
-            print("char is: " + character_chosen)
             clear()
             continue
         elif character_chosen in letters_guessed_list:
@@ -188,13 +187,14 @@ def game(choice: int):
             print("Already guessed, guess again...")
             continue
         else:
-            print("cha " + character_chosen)
             letters_guessed_list.append(character_chosen)
             clear()
 
         if character_chosen not in chosen_word:
             tries_left -= 1
-    clear()
+
+        clear()
+
     if win:
         gameover_win(chosen_word)
     elif death:
@@ -202,5 +202,6 @@ def game(choice: int):
 
     input()
     clear()
+    return None
 
 

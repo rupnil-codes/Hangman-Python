@@ -1,13 +1,13 @@
 from src.gamePages.instructionPage import instructions
 from src.gamePages.settingsPage import settings
 from src.utils import clear
-from src.gamePages.startMenu import start_menu
+from src.gamePages.startMenu import credits, start_menu
 from src.gamePages.gameMenu import game_menu
 from src.gamePages.gamePage import game
 from src import utils
 
-
 if __name__ == '__main__':
+    credits()
 
     while True:
         # StartMenu includes Onboarding!
