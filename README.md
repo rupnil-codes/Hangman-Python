@@ -17,7 +17,7 @@
 > [!CAUTION]
 > Excavation *kinda works* as of right now. I'm still working on polishing the app!
 
-Hangman, A simple CLI based python game! 
+Excavation is a psychological horror game that incorporates the mechanics of the Hangman game.
 
 ## TODO:
 - [ ] Better UI!
