@@ -13,10 +13,14 @@ if __name__ == '__main__':
         # StartMenu includes Onboarding!
         choice = start_menu()
         if choice == 1:
-            # Game Menu
-            choice = game_menu()
-            # Game
-            game(choice)
+            while True:
+                # Game Menu
+                choice = game_menu()
+
+                if choice is None:
+                    break
+                # Game
+                game(choice)
 
         elif choice == 2:
             instructions()

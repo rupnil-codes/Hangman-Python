@@ -121,11 +121,18 @@ def think():
     input()
     clear()
 
+
 def game(choice: int):
     if choice is None:
         return None
 
-    hangman = hangman_complete[choice-1]
+    if 1 < choice < 6:
+        hangman = hangman_complete[choice - 1]
+    else:
+        rnd = random.randint(0, len(hangman_complete) - 1)
+        hangman = hangman_complete[rnd]
+
+
     tries_left = len(hangman)
 
     death = False
