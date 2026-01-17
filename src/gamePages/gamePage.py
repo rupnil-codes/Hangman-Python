@@ -126,7 +126,7 @@ def game(choice: int):
     if choice is None:
         return None
 
-    if 1 < choice < 6:
+    if 0 < choice < 6:
         hangman = hangman_complete[choice - 1]
     else:
         rnd = random.randint(0, len(hangman_complete) - 1)

@@ -21,7 +21,7 @@ Hangman, A simple CLI based python game!
 
 ## TODO:
 - [ ] Better UI!
-- [ ]  add a section "used letters" and the user can enable or disable it or u show it based on difficulty
+- [ ] add a section "used letters" and the user can enable or disable it or u show it based on difficulty
 - [ ] give the play a hint when they keep guessing wrong letters e.g. "This word has 2 vowels", "A" is in the word, etc
 - [ ] add "play again" that takes u to the difficulty page
 - [ ] A Twist!
