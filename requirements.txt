@@ -1,0 +1,2 @@
+textual~=7.3.0
+textual-dev~=1.8.0
